@@ -28,6 +28,8 @@ Implements `prd.md > The Core Journey`.
 - GitHub Pages, published from `main` and `/docs`. Only the contents of `site/` are copied to `docs/` for deployment. [Publishing configuration](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
 
 ## Where It Runs and How Someone Tries It
+
+Shipping update: the public repository is https://github.com/drflynn93/football-in-motion, verified without authentication on October 5, 2026 (public, MIT license). GitHub Pages is configured for main /docs. A .nojekyll file in the publishing folder tells GitHub to serve the prepared static app without Jekyll processing; the publishing helper copies this marker from site/. The live URL will be recorded after it is verified.
 After implementation, from the project root:
 - `node tools/serve.mjs` serves only `site/` on `127.0.0.1:4173`. Open `http://127.0.0.1:4173/` to try or record the app; Ctrl+C stops the preview. Support a port argument if the default is occupied.
 - `node --test` runs calculation and controller checks.

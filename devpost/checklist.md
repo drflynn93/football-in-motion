@@ -97,7 +97,7 @@ Activity mode: completed-practice connection and evidence-based recap, with an u
 - [ ] Confirm any already-created repository or video links with learner; none saved in project yet.
 - [x] Learner chose Football in Motion / football-in-motion and approved MIT licensing for original app code. Root LICENSE names Kevin Flynn; D3 ISC and football-data CC BY 4.0 terms remain separate.
 - [x] Learner chose Football in Motion / football-in-motion and explicitly authorized creating the public drflynn93 repository, uploading the reviewed app/planning files and enabling Pages, after being told included files and history will be public and the learner profile stays excluded.
-- [ ] Verify public repository without authentication and record URL in spec.
+- [x] Verified https://github.com/drflynn93/football-in-motion without authentication: public repository, MIT license; recorded in spec.
 - [ ] Publish the agreed GitHub Pages app and verify public URL; record in spec.
 - [ ] Learner records/uploads demo; verify public video URL and record in spec.
 - [ ] Read actual signed-in submission form and its exit-survey prompts. Public form view did not expose the editable fields. Do not assume exact required fields from generic Devpost forms.
@@ -107,3 +107,9 @@ Activity mode: completed-practice connection and evidence-based recap, with an u
 Contest deadline shown October 5: October 26, 2026, 5:00 p.m. Eastern. Sources above are requirements evidence, not authorization to publish or accept terms.
 
 Shipping access: GitHub CLI is not installed; Git credential manager is available. GitHub repository creation opened in the in-app browser, which requires the learner to sign in directly. No password/token requested in chat. MIT code-license choice approved and added. No repository created or pushed yet.
+
+Publication progress: created the authorized public repository https://github.com/drflynn93/football-in-motion in the signed-in GitHub browser. Added origin remote. Initial Git upload failed with HTTP 403; repository is still empty. Started Git Credential Manager browser reauthentication for drflynn93 (pending learner completion); do not create another repository. MIT license is committed as 9f824ff. Pages has not been enabled.
+
+Separate-version request: learner requested a fork/version allowing game selection, possibly through the original play-by-play website. Created local multi-game branch at the approved licensed main checkpoint 9f824ff; main remains the single-game contest version. No multi-game features implemented yet. Asked which leagues to support. nflreadr documentation confirms season-based NFL play-by-play since 1999; source/import approach remains to be agreed. Reattempted main upload after learner reported browser sign-in; still HTTP 403 while Git Credential Manager authorization remains pending.
+
+Authentication resolved: Git Credential Manager completed successfully and main uploaded. GitHub Pages source saved as main /docs. GitHub reported unavailable Actions/Jekyll processing despite Actions settings already enabled; added the documented .nojekyll marker to the public manifest to publish static files directly. Real-game verifier and both hosting checks pass with 13 public assets. Live-site verification pending deployment.

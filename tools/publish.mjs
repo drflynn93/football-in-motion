@@ -3,7 +3,7 @@ import { resolve,dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 const project=fileURLToPath(new URL('../',import.meta.url));
-export const PUBLIC_FILES=['index.html','styles.css','vendor/d3-7.9.0.min.js','vendor/d3-LICENSE','data/bills-chiefs.json',...['app','model','playback','replay-chart','events','analysis','fourth-downs'].map(name=>`js/${name}.js`)];
+export const PUBLIC_FILES=['.nojekyll','index.html','styles.css','vendor/d3-7.9.0.min.js','vendor/d3-LICENSE','data/bills-chiefs.json',...['app','model','playback','replay-chart','events','analysis','fourth-downs'].map(name=>`js/${name}.js`)];
 export async function auditPublicDirectory(directory) {
   const result=[];
   async function walk(relative='') {
