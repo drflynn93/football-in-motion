@@ -46,3 +46,7 @@ D3 7.9.0 is vendored locally under its ISC license; see `site/vendor/d3-LICENSE`
 ## Proof-of-concept boundary
 
 One verified saved game. Additional games, fetching/importing play-by-play and high-school support are deferred. Fourth-down analysis describes decisions and outcomes; it does not recommend an optimal decision.
+
+## License
+
+Original application code is licensed under the [MIT License](LICENSE), copyright 2026 Kevin Flynn. The included D3 library retains its ISC license. Football data retains its CC BY 4.0 license and attribution; the application license does not replace those third-party terms.

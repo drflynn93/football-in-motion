@@ -95,7 +95,7 @@ Activity mode: completed-practice connection and evidence-based recap, with an u
 - [x] Initial publication review: five local commits inspected; learner profile and credential files absent from tracked history. Credential-pattern matches in tools/publish.mjs are the scanner's own pattern strings, not credentials. Canonical scope and HTML planning companions reviewed for deliberate inclusion; added clear finished-project notes while retaining the planning history. Personal profile remains ignored.
 - [x] Current public contest requirements checked at https://learn-ai-basics.devpost.com/ and /rules. Overview specifies a 1–3 minute video; rules say less than three minutes, publicly visible on YouTube or Vimeo. Plan for at least one minute and under three minutes. Public GitHub/GitLab/Bitbucket repository must contain scope.md, prd.md and spec.md; rules also call for an open-source license. A live app link is optional.
 - [ ] Confirm any already-created repository or video links with learner; none saved in project yet.
-- [ ] Agree on project/repository name and code license; no root application license selected yet. D3 and data licenses remain separate.
+- [x] Learner chose Football in Motion / football-in-motion and approved MIT licensing for original app code. Root LICENSE names Kevin Flynn; D3 ISC and football-data CC BY 4.0 terms remain separate.
 - [x] Learner chose Football in Motion / football-in-motion and explicitly authorized creating the public drflynn93 repository, uploading the reviewed app/planning files and enabling Pages, after being told included files and history will be public and the learner profile stays excluded.
 - [ ] Verify public repository without authentication and record URL in spec.
 - [ ] Publish the agreed GitHub Pages app and verify public URL; record in spec.
@@ -106,4 +106,4 @@ Activity mode: completed-practice connection and evidence-based recap, with an u
 
 Contest deadline shown October 5: October 26, 2026, 5:00 p.m. Eastern. Sources above are requirements evidence, not authorization to publish or accept terms.
 
-Shipping access: GitHub CLI is not installed; Git credential manager is available. GitHub repository creation opened in the in-app browser, which requires the learner to sign in directly. No password/token requested in chat. MIT code-license choice offered; awaiting answer. No repository created or pushed yet.
+Shipping access: GitHub CLI is not installed; Git credential manager is available. GitHub repository creation opened in the in-app browser, which requires the learner to sign in directly. No password/token requested in chat. MIT code-license choice approved and added. No repository created or pushed yet.
