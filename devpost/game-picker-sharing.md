@@ -11,4 +11,6 @@ The learner approved the working extension and requested publication for sharing
 
 Local checks passed before publication: 40 picker tests, all catalog games validated, original official verifier, Browns–Chiefs replay and comparisons, Packers–Cowboys overtime tie, Retry recovery, resetting during replay, narrow layout. Public-link verification follows deployment.
 
+Publication verified: catalog responds publicly with 565 games; the original root app still responds with its original layout; the 2025 Packers–Cowboys file responds with 211 events; the repository is publicly readable. Live browser selection of Browns loads the new matchup and starts replay. Sharing does not require keeping the learner's PC on.
+
 To update the picker, prepare and test `docs/` on `multi-game`, copy those reviewed public assets into `main`'s `docs/game-picker/`, audit them, and commit/push main. Do not overwrite the root app unless the learner requests it. Keep ignored source downloads, private learner context and local credentials out of public history.
