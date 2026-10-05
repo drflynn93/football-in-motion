@@ -5,6 +5,8 @@ status: approved
 
 # Football Game Animation — Product Requirements
 
+Final project name chosen by the learner during shipping: **Football in Motion**. Earlier working-title and pending-build notes below record the planning stage; the build and hands-on review are now complete, as recorded in checklist.md.
+
 ## Approved Requirements Amendment — October 5, 2026
 The learner requested new fourth-down analysis and possible additional-game/data-source features during `4-spec`. The previously approved requirements below remain the baseline. The learner approved the amended scope and product requirements on October 5, 2026, including the labeled fourth-down proposals below. Resume technical planning; implementation still awaits an approved specification.
 

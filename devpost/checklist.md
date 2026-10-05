@@ -88,3 +88,22 @@ Activity mode: completed-practice connection and evidence-based recap, with an u
 
 
 - Optional Discord project-thread suggestion made after the first checkpoint; no message sent.
+
+## Shipping — started October 5, 2026
+
+- [x] Readiness rechecked: 32 tests pass; verifier reconciles 189 events, 21 scoring changes, five period totals, returns and fourth downs. Documented preview responds successfully. Learner additionally tried the complete app and reported liking it.
+- [x] Initial publication review: five local commits inspected; learner profile and credential files absent from tracked history. Credential-pattern matches in tools/publish.mjs are the scanner's own pattern strings, not credentials. Canonical scope and HTML planning companions reviewed for deliberate inclusion; added clear finished-project notes while retaining the planning history. Personal profile remains ignored.
+- [x] Current public contest requirements checked at https://learn-ai-basics.devpost.com/ and /rules. Overview specifies a 1–3 minute video; rules say less than three minutes, publicly visible on YouTube or Vimeo. Plan for at least one minute and under three minutes. Public GitHub/GitLab/Bitbucket repository must contain scope.md, prd.md and spec.md; rules also call for an open-source license. A live app link is optional.
+- [ ] Confirm any already-created repository or video links with learner; none saved in project yet.
+- [ ] Agree on project/repository name and code license; no root application license selected yet. D3 and data licenses remain separate.
+- [x] Learner chose Football in Motion / football-in-motion and explicitly authorized creating the public drflynn93 repository, uploading the reviewed app/planning files and enabling Pages, after being told included files and history will be public and the learner profile stays excluded.
+- [ ] Verify public repository without authentication and record URL in spec.
+- [ ] Publish the agreed GitHub Pages app and verify public URL; record in spec.
+- [ ] Learner records/uploads demo; verify public video URL and record in spec.
+- [ ] Read actual signed-in submission form and its exit-survey prompts. Public form view did not expose the editable fields. Do not assume exact required fields from generic Devpost forms.
+- [ ] Learner writes project name, description, required answers and exit survey; agent may identify gaps and correct spelling/grammar only.
+- [ ] Learner submits on Devpost and confirms completion. Nothing has been submitted or published remotely.
+
+Contest deadline shown October 5: October 26, 2026, 5:00 p.m. Eastern. Sources above are requirements evidence, not authorization to publish or accept terms.
+
+Shipping access: GitHub CLI is not installed; Git credential manager is available. GitHub repository creation opened in the in-app browser, which requires the learner to sign in directly. No password/token requested in chat. MIT code-license choice offered; awaiting answer. No repository created or pushed yet.

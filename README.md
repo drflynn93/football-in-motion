@@ -1,4 +1,4 @@
-# Game in motion
+# Football in Motion
 
 A checked replay of Buffalo Bills vs Kansas City Chiefs, January 23, 2022. Watch net offensive and return yards grow against each team's actual score, inspect key plays, compare passing/rushing over time, and examine fourth-down decisions.
 

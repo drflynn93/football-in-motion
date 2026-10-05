@@ -5,6 +5,8 @@ status: approved
 
 # Football Game Animation — Technical Spec
 
+Final project name chosen by the learner during shipping: **Football in Motion**. Planned repository: `drflynn93/football-in-motion`. Public repository and Pages URLs will be recorded after creation and verification; no live URL is assumed here. The build and hands-on review are complete; earlier future-tense notes below preserve the technical-planning record.
+
 ## How This Works, In Plain Language
 We prepare one checked file of Bills–Chiefs plays. Opening the app reads that file; pressing Play moves through it in order. D3 draws the game paths, while the same plays provide the ticker, event bubbles, final statistics, and fourth-down analysis. Playback controls change the viewing pace without changing the statistics. GitHub Pages shares the finished app through a public link.
 
