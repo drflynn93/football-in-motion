@@ -2,7 +2,7 @@
 
 This separate `multi-game` version adds a game picker: choose the 2021 or 2025 NFL season, filter by team, choose a game, then select **Load game → Play**. Watch net offensive and return yards grow against actual scores, inspect key plays, compare passing/rushing over time, and examine fourth-down decisions.
 
-[Original public one-game app](https://drflynn93.github.io/football-in-motion/) · [GitHub repository](https://github.com/drflynn93/football-in-motion). The game-picker extension is a separate local version; that public link still shows the original.
+[Try the public game picker](https://drflynn93.github.io/football-in-motion/game-picker/) · [Original public one-game app](https://drflynn93.github.io/football-in-motion/) · [GitHub repository](https://github.com/drflynn93/football-in-motion).
 
 ## Start locally
 
@@ -27,7 +27,7 @@ node tools/serve.mjs --docs --prefix /football-demo/ --port 4174
 
 The last command previews the prepared site at **http://127.0.0.1:4174/football-demo/**, simulating a repository subpath. The preparation helper validates the game and copies an explicit public-file list from `site/` to `docs/`. It refuses unexpected public files. It does not upload or deploy anything.
 
-The original is already published from `main` → `/docs`. Keep this version on `multi-game` while reviewing it. Publishing the extension is a separate decision; the preparation command only writes local files.
+Both versions are published from `main` → `/docs`. The original is at the root; this extension is at `/game-picker/`. Development remains on `multi-game`. To publish an update, review and test this branch's prepared docs, then copy those public files into main's `docs/game-picker/` and commit/push main. Do not merge this branch over the original root app. The preparation command only writes local files.
 
 ## What the numbers mean
 

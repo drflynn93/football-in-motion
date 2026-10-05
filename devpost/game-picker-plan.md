@@ -31,7 +31,7 @@ Existing tests and original official verifier remain passing. Add meaningful che
 - The original official-gamebook verifier still passes. Automated checks cover every catalog game, home/away filtering, quoted CSV descriptions, missing scores, overtime clocks, failed loads, cancelled and out-of-order requests, and the browser fetch receiver.
 - Browser checks exercised Browns–Chiefs regulation replay, passing comparison, fourth-down comparisons, changing to Packers–Cowboys in 2025, and a narrow layout without horizontal overflow. Browser testing caught and corrected the fetch receiver issue.
 - Final verification: all 40 automated tests pass. Packers–Cowboys finishes 40–40 with overtime and tie labels; its analysis defaults to Packers. A deliberately missing local game shows Retry, then recovers after restoration. Loading a different game during a paused replay resets all old analysis. The narrow picker has no horizontal overflow. The official example verifier continues to pass.
-- Learner hands-on review is pending; publication of this separate version is pending.
+- Learner hands-on review completed: “i like it, i'd like to share it with people.” Publication was authorized and completed at `https://drflynn93.github.io/football-in-motion/game-picker/`, with original root app preserved. Catalog, original example and other selected games load publicly without authentication. Source remains on `multi-game`; main hosts the reviewed assets under `docs/game-picker/`.
 
 ## Follow one game selection through the code
 
