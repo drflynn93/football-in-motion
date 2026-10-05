@@ -2,6 +2,8 @@
 
 A checked replay of Buffalo Bills vs Kansas City Chiefs, January 23, 2022. Watch net offensive and return yards grow against each team's actual score, inspect key plays, compare passing/rushing over time, and examine fourth-down decisions.
 
+[Try the public app](https://drflynn93.github.io/football-in-motion/) · [GitHub repository](https://github.com/drflynn93/football-in-motion)
+
 ## Start locally
 
 You need Node.js (built and tested with Node 24). Open this project folder in Codex. Ask: **“Start the football app preview.”** Or run this from the project folder:

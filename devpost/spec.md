@@ -29,7 +29,7 @@ Implements `prd.md > The Core Journey`.
 
 ## Where It Runs and How Someone Tries It
 
-Shipping update: the public repository is https://github.com/drflynn93/football-in-motion, verified without authentication on October 5, 2026 (public, MIT license). GitHub Pages is configured for main /docs. A .nojekyll file in the publishing folder tells GitHub to serve the prepared static app without Jekyll processing; the publishing helper copies this marker from site/. The live URL will be recorded after it is verified.
+Shipping update: the public repository is https://github.com/drflynn93/football-in-motion, verified without authentication on October 5, 2026 (public, MIT license). The live app is https://drflynn93.github.io/football-in-motion/. GitHub Pages is configured for main /docs. A .nojekyll file in the publishing folder tells GitHub to serve the prepared static app without Jekyll processing; the publishing helper copies this marker from site/. The public app and its assets load without authentication; live browser replay starts successfully. Demo-video URL remains pending.
 After implementation, from the project root:
 - `node tools/serve.mjs` serves only `site/` on `127.0.0.1:4173`. Open `http://127.0.0.1:4173/` to try or record the app; Ctrl+C stops the preview. Support a port argument if the default is occupied.
 - `node --test` runs calculation and controller checks.
