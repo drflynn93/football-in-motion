@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bills vs Chiefs · Football in Motion</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./vendor/d3-7.9.0.min.js" defer></script>
+  <script src="./js/app.js" type="module"></script>
+</head>
+<body>
+<main>
+  <header><p class="eyebrow">Football in Motion · Game picker</p><h1 id="matchup">Choose a football game</h1><p id="matchup-date">NFL game replays</p></header>
+  <section class="picker" aria-labelledby="picker-title">
+    <h2 id="picker-title">Choose a game</h2>
+    <div class="picker-filters"><label>Season <select id="season-filter"></select></label><label>Team <select id="team-filter"></select></label></div>
+    <label class="game-choice">Game <select id="game-choice"></select></label><button id="load-game" disabled>Load game</button>
+    <p id="picker-status" role="status">Loading game list…</p><p id="verification-note" class="note"></p>
+    <div id="catalog-error" hidden role="alert"><p>The game list could not be loaded.</p><button id="retry-catalog">Retry game list</button></div>
+    <details id="unavailable-games" hidden><summary id="unavailable-count"></summary><ul id="unavailable-list"></ul></details>
+  </section>
+  <section id="opening"><button id="play" disabled>Loading game…</button></section>
+  <section id="error" hidden role="alert"><p>The game could not be loaded. Please try again.</p><button id="retry">Retry</button></section>
+  <section id="replay" hidden aria-label="Game replay">
+    <div class="playback"><button id="pause">Pause</button><button id="restart">Replay</button><label>Speed <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option><option value="8">8×</option></select></label><p id="score">Bills 0 · Chiefs 0</p></div>
+    <div class="ticker"><p id="context"></p><p id="description"></p></div>
+    <div class="chart-wrap"><svg id="chart" viewBox="0 0 980 610" role="group" aria-label="Game paths: actual score left and right from zero, cumulative net offensive and return yards upward"></svg><aside id="event-bubble" hidden role="note"><button id="close-event" hidden aria-label="Close play details">×</button><h2 id="event-title"></h2><p id="event-context"></p><p id="event-description"></p></aside></div>
+    <div class="legend"><span><i class="run"></i>Run</span><span><i class="pass"></i>Pass</span><span class="return">PR / KR / IR / FR · Returns</span><span><i class="loss"></i>Lost yards</span></div>
+    <p class="note">Yards = rushing + passing after sacks + returns. Each side shows its team's actual score; distance between lines is not the score difference.</p>
+    <p class="note">Yellow dots mark key plays. Hover or focus to pause and read; leave to resume. Click or tap to keep a play open, then close it.</p>
+    <p id="complete" hidden role="status">Final · Bills 36 — Chiefs 42 · Overtime</p>
+    <section id="box-score" hidden aria-labelledby="box-title">
+      <h2 id="box-title">Final box score</h2>
+      <p class="note">Select passing or rushing to watch those yards grow over game time.</p>
+      <table><thead><tr><th scope="col">Statistic</th><th id="box-away" scope="col">Away</th><th id="box-home" scope="col">Home</th></tr></thead><tbody id="box-rows"></tbody></table>
+      <p id="passing-note" class="note"></p>
+    </section>
+    <section id="stat-analysis" hidden aria-labelledby="stat-title">
+      <div class="analysis-header"><h2 id="stat-title">Passing yards over time</h2><label>Show <select id="stat-team"><option value="KC">Chiefs</option><option value="BUF">Bills</option><option value="both">Compare both</option></select></label><button id="compare-stat">Compare both</button></div>
+      <p id="stat-summary" class="note"></p>
+      <svg id="stat-chart" viewBox="0 0 760 410" role="img" aria-label="Selected yards over elapsed game time, with quarter totals"></svg>
+      <p class="note">Quarter labels show cumulative totals. OT marks the overtime ending.</p>
+    </section>
+    <section id="fourth-analysis" hidden aria-labelledby="fourth-title">
+      <div class="analysis-header"><h2 id="fourth-title">Fourth-down decisions</h2><label>Show <select id="fourth-team"><option value="KC">Chiefs</option><option value="BUF">Bills</option><option value="both">Compare both</option></select></label><button id="compare-fourth">Compare both</button></div>
+      <div id="fourth-summaries"></div>
+      <p class="note">Click the number of fourth downs to inspect the decisions. Go-for-it rate = attempts / all decisions. Conversion rate = successful attempts / attempts.</p>
+      <div id="fourth-bars" hidden>
+        <p class="note">Bar height is yards needed, not yards gained. Bars follow game order. Hover, focus or select a bar for the play and score context.</p>
+        <svg id="fourth-chart" viewBox="0 0 760 390" role="group" aria-label="Fourth-down decisions in chronological order, showing yards needed and outcome"></svg>
+        <div class="decision-legend"><span><i class="converted"></i>Went for it · made it</span><span><i class="failed"></i>Went for it · failed</span><span><i class="punt"></i>Punt</span><span><i class="made-fg"></i>Made field goal</span><span><i class="missed-fg"></i>Missed field goal</span></div>
+        <p id="fourth-empty" hidden>No fourth-down decisions to display.</p>
+        <aside id="fourth-detail" hidden><button id="close-fourth" aria-label="Close fourth-down details">×</button><h3 id="fourth-detail-title"></h3><p id="fourth-detail-context"></p><p id="fourth-detail-play"></p></aside>
+      </div>
+    </section>
+  </section>
+  <footer>Data: <a href="https://github.com/nflverse/nflverse-data/releases/tag/pbp">nflverse</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Filtered and normalized with source checks. The original Bills–Chiefs example was independently checked against its <a href="https://static.www.nfl.com/image/upload/v1677629313/gamecenter/34f0d976-71ad-11ec-a493-77fb1cc3a88e.pdf">official gamebook</a>.</footer>
+</main>
+</body>
+</html>

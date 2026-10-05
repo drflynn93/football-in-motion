@@ -4,6 +4,8 @@ A checked replay of Buffalo Bills vs Kansas City Chiefs, January 23, 2022. Watch
 
 [Try the public app](https://drflynn93.github.io/football-in-motion/) · [GitHub repository](https://github.com/drflynn93/football-in-motion)
 
+The separate [NFL game-picker version](https://drflynn93.github.io/football-in-motion/game-picker/) includes 565 saved games from the 2021 and 2025 seasons, with team filtering and the same replay and analysis tools. Five source games are unavailable because required timing or play order could not be validated. Additional games are source-checked; only the original example was independently reconciled against its official gamebook. Picker source and tests live on the `multi-game` branch; its reviewed public files are published separately under `docs/game-picker/`.
+
 ## Start locally
 
 You need Node.js (built and tested with Node 24). Open this project folder in Codex. Ask: **“Start the football app preview.”** Or run this from the project folder:
