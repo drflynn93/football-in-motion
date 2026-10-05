@@ -19,7 +19,7 @@ Build mode: learn — chosen by the learner; after each verified slice, provide 
   Learner check: Open the app, press Play, inspect how the two paths develop, and report whether this tells the game story you imagined. The server will be started and its URL provided.
   Commit: `Add verified game data and playable football replay`
 
-- [ ] **2. Control playback and revisit key moments**
+- [x] **2. Control playback and revisit key moments**
   Becomes usable: Pause, resume, change speed and replay; inspect persistent yellow event markers and the associated player/event bubbles.
   Why now: Makes the working kernel comfortable to watch and explore before adding analysis views.
   PRD ref: `prd.md > Ticker and Playback`, `prd.md > Key Moments and Hover Markers`, `prd.md > Look and Feel`
@@ -51,7 +51,9 @@ Build mode: learn — chosen by the learner; after each verified slice, provide 
 
 ## Hands-on Checkpoints
 
-Slice 2 implemented and mechanically verified October 5, 2026; awaiting its learner check before committing. Nineteen Node tests pass (ten game-model and nine playback checks); independent real-game verification still passes. Browser checks covered marker hover/focus, automatic resume, preserving manual pause, keyboard Enter, click-to-pin/Close, speed selection and Replay clearing score/markers. Fixed a real narrow-layout click failure and repeated click/close/pause/Replay checks successfully. Preview left with an earlier touchdown open for inspection.
+Slice 3 implemented and mechanically verified October 5, 2026; awaiting learner feedback before the checkpoint commit. Twenty-three Node tests and the independent game verifier pass. Browser verified box score values, Chiefs as first selection with Compare both visible, Bills/Chiefs/both choices, passing-to-rushing restart, all five passing/rushing period totals, and an unchanged completed main SVG. After readability/end-bubble refinements, reran a complete 8x replay and checked the updated passing comparison and clean finish. Preview left on the completed passing comparison; the learner can immediately explore box-score choices.
+
+Slice 2 implemented and mechanically verified October 5, 2026; learner confirmed expected behavior and the slice was committed. Nineteen Node tests pass (ten game-model and nine playback checks); independent real-game verification still passes. Browser checks covered marker hover/focus, automatic resume, preserving manual pause, keyboard Enter, click-to-pin/Close, speed selection and Replay clearing score/markers. Fixed a real narrow-layout click failure and repeated click/close/pause/Replay checks successfully. Preview left with an earlier touchdown open for inspection.
 
 Slice 1 implementation and mechanical verification completed October 5, 2026: 189 normalized events; independent scoring/period/final-total verifier and nine model tests pass; browser replay reached Bills 36 / Chiefs 42; missing-data message and successful Retry checked. Learner confirmed the game story and approved clearer axis labels; slice 1 committed. Local preview: `node tools/serve.mjs` → `http://127.0.0.1:4173/`. Local Git author configured as Kevin Flynn with the learner-supplied GitHub no-reply address; first checkpoint saved.
 
@@ -75,6 +77,7 @@ Reflection: not offered yet; personal answers remain in the ignored learner prof
 Activity mode: guided action trace after final review, unless useful prior practice is connected instead
 
 ## Revisions
+- Slice 3 browser review separated the closely spaced Q4/OT labels for readability. It also revealed that the final transient bubble could remain visible when the main clock stopped; completed playback now clears automatic bubbles while retaining dot inspection.
 - Slice 2 browser testing found that the longer inspection-pause button label could wrap the controls and move the dot during a click on narrow screens. Reserved a stable button width so inspection does not move the chart.
 - First learner review confirmed the paths match the intended game story and requested clearer score/yardage axes. Added exact bold team-score badges with brief yellow scoring highlights and a prominent cumulative-yards heading; learner retried and approved; included in the slice 1 checkpoint.
 - Basic pause and speed controls were introduced in slice 1 to make complete-game verification practical. Slice 2 still completes the control interactions, reset and event inspection; the agreed product behavior is unchanged.
@@ -83,4 +86,3 @@ Activity mode: guided action trace after final review, unless useful prior pract
 
 
 - Optional Discord project-thread suggestion made after the first checkpoint; no message sent.
-

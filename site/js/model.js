@@ -86,3 +86,14 @@ export function scoreDisplayAt(model, schedule, index, fraction, time) {
     return [team, { score, highlight: time >= scoredAt && time - scoredAt < 3000 }];
   }));
 }
+
+export function statSeries(model, stat, team, elapsed = Infinity) {
+  if (!['passing', 'rushing'].includes(stat) || !TEAMS.includes(team)) throw new Error('Unknown yardage selection.');
+  const points = [{ elapsed: 0, yards: 0 }];
+  for (const snapshot of model.snapshots) {
+    if (snapshot.event.elapsed > elapsed) break;
+    points.push({ elapsed: snapshot.event.elapsed, yards: snapshot.after[team][stat] });
+  }
+  if (Number.isFinite(elapsed)) points.push({ elapsed, yards: points.at(-1).yards });
+  return points;
+}

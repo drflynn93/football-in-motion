@@ -34,7 +34,7 @@ export function createEventInspector(svgElement, model, schedule, render, clock)
     bubble.style.top=`${Math.max(bubble.offsetHeight+8,marker.y/610*area.height-14)}px`;
   }
   function refresh() {
-    const transient=markers.findLast(m=>m.at<=lastTime&&lastTime-m.at<3000&&!dismissed.has(m.index));
+    const transient=lastTime<clock.duration?markers.findLast(m=>m.at<=lastTime&&lastTime-m.at<3000&&!dismissed.has(m.index)):null;
     show(pinned??hovered??focused??transient,Boolean(pinned));
   }
   dots.on('pointerenter',(_event,m)=>{hovered=m;clock.inspect('hover',true);refresh();})

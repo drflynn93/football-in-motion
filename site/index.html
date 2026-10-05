@@ -21,6 +21,18 @@
     <p class="note">Yards = rushing + passing after sacks + returns. Each side shows its team's actual score; distance between lines is not the score difference.</p>
     <p class="note">Yellow dots mark key plays. Hover or focus to pause and read; leave to resume. Click or tap to keep a play open, then close it.</p>
     <p id="complete" hidden role="status">Final · Bills 36 — Chiefs 42 · Overtime</p>
+    <section id="box-score" hidden aria-labelledby="box-title">
+      <h2 id="box-title">Final box score</h2>
+      <p class="note">Select passing or rushing to watch those yards grow over game time.</p>
+      <table><thead><tr><th scope="col">Statistic</th><th scope="col">Bills</th><th scope="col">Chiefs</th></tr></thead><tbody id="box-rows"></tbody></table>
+      <p class="note">Passing here is gross passing yardage. The main replay uses passing after sack losses (Bills 313; Chiefs 370). Return yards include PR, KR, IR and FR; interceptions and opponent fumble recoveries are counts.</p>
+    </section>
+    <section id="stat-analysis" hidden aria-labelledby="stat-title">
+      <div class="analysis-header"><h2 id="stat-title">Passing yards over time</h2><label>Show <select id="stat-team"><option value="KC">Chiefs</option><option value="BUF">Bills</option><option value="both">Compare both</option></select></label><button id="compare-stat">Compare both</button></div>
+      <p id="stat-summary" class="note"></p>
+      <svg id="stat-chart" viewBox="0 0 760 410" role="img" aria-label="Selected yards over elapsed game time, with quarter totals"></svg>
+      <p class="note">Quarter labels show cumulative totals. OT marks the overtime ending.</p>
+    </section>
   </section>
   <footer>Data: <a href="https://github.com/nflverse/nflverse-data/releases/tag/pbp">nflverse</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Filtered and normalized for this replay; checked against the <a href="https://static.www.nfl.com/image/upload/v1677629313/gamecenter/34f0d976-71ad-11ec-a493-77fb1cc3a88e.pdf">official gamebook</a>.</footer>
 </main>
