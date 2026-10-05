@@ -9,7 +9,7 @@ Build mode: learn — chosen by the learner; after each verified slice, provide 
 
 ## Slices
 
-- [ ] **1. Play the real game as growing score-and-yardage paths**
+- [x] **1. Play the real game as growing score-and-yardage paths**
   Becomes usable: Open the local app, see the matchup, press Play and watch the real checked game paths grow with a matching play ticker.
   Why now: Proves the central visual idea and highest-risk data accounting together; bootstrapping happens within this usable slice.
   PRD ref: `prd.md > The Core Journey`, `prd.md > Main Game Replay`, `prd.md > States and Boundaries`
@@ -51,9 +51,11 @@ Build mode: learn — chosen by the learner; after each verified slice, provide 
 
 ## Hands-on Checkpoints
 
-Slice 1 implementation and mechanical verification completed October 5, 2026: 189 normalized events; independent scoring/period/final-total verifier and nine model tests pass; browser replay reached Bills 36 / Chiefs 42; missing-data message and successful Retry checked. Waiting for learner feedback before the slice commit. Local preview: `node tools/serve.mjs` → `http://127.0.0.1:4173/`. Local Git author configured as Kevin Flynn with the learner-supplied GitHub no-reply address; learner feedback remains pending before the first checkpoint commit.
+Slice 2 implemented and mechanically verified October 5, 2026; awaiting its learner check before committing. Nineteen Node tests pass (ten game-model and nine playback checks); independent real-game verification still passes. Browser checks covered marker hover/focus, automatic resume, preserving manual pause, keyboard Enter, click-to-pin/Close, speed selection and Replay clearing score/markers. Fixed a real narrow-layout click failure and repeated click/close/pause/Replay checks successfully. Preview left with an earlier touchdown open for inspection.
 
-- [ ] Early usable behavior explored — after slice 1; feedback can shape the visual implementation before later work.
+Slice 1 implementation and mechanical verification completed October 5, 2026: 189 normalized events; independent scoring/period/final-total verifier and nine model tests pass; browser replay reached Bills 36 / Chiefs 42; missing-data message and successful Retry checked. Learner confirmed the game story and approved clearer axis labels; slice 1 committed. Local preview: `node tools/serve.mjs` → `http://127.0.0.1:4173/`. Local Git author configured as Kevin Flynn with the learner-supplied GitHub no-reply address; first checkpoint saved.
+
+- [x] Early usable behavior explored — after slice 1; feedback can shape the visual implementation before later work.
 - [ ] Final kick-the-tires exploration and feedback completed — after slice 4. In learn mode, each slice also gets its listed learner check.
 
 ## Final Review
@@ -73,8 +75,12 @@ Reflection: not offered yet; personal answers remain in the ignored learner prof
 Activity mode: guided action trace after final review, unless useful prior practice is connected instead
 
 ## Revisions
-- First learner review confirmed the paths match the intended game story and requested clearer score/yardage axes. Added exact bold team-score badges with brief yellow scoring highlights and a prominent cumulative-yards heading; awaiting the learner's retry before the slice 1 commit.
+- Slice 2 browser testing found that the longer inspection-pause button label could wrap the controls and move the dot during a click on narrow screens. Reserved a stable button width so inspection does not move the chart.
+- First learner review confirmed the paths match the intended game story and requested clearer score/yardage axes. Added exact bold team-score badges with brief yellow scoring highlights and a prominent cumulative-yards heading; learner retried and approved; included in the slice 1 checkpoint.
 - Basic pause and speed controls were introduced in slice 1 to make complete-game verification practical. Slice 2 still completes the control interactions, reset and event inspection; the agreed product behavior is unchanged.
 
 
+
+
+- Optional Discord project-thread suggestion made after the first checkpoint; no message sent.
 

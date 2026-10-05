@@ -1,8 +1,9 @@
 import { createModel, buildSchedule, positionAt, scoreDisplayAt } from './model.js';
 import { Playback } from './playback.js';
 import { createReplayChart } from './replay-chart.js';
+import { createEventInspector, playContext, updateTicker } from './events.js';
 const el = id => document.getElementById(id);
-let model, clock, render, schedule;
+let model, clock, render, schedule, inspector;
 async function load() {
   el('error').hidden=true; el('opening').hidden=false; el('play').disabled=true; el('play').textContent='Loading game…';
   try {
@@ -22,21 +23,25 @@ function update(time) {
   const s=model.snapshots[index];
   const scoreDisplay=scoreDisplayAt(model,schedule,index,fraction,time);
   render(index,fraction,reveal,scoreDisplay);
-  if(time<4000){el('context').textContent='Opening coin toss'; el('description').textContent=model.game.opening;}
-  else {
-    el('context').textContent=`${s.event.quarter===5?'Overtime':`Quarter ${s.event.quarter}`} · ${s.event.clock}${s.event.team?` · ${model.game.teams[s.event.team].name}`:''}${s.event.down?` · ${s.event.down}${['st','nd','rd','th'][s.event.down-1]} & ${s.event.yardsNeeded}`:''}`;
-    el('description').textContent=s.event.description;
-  }
+  updateTicker(time<4000?{context:'Opening coin toss',description:model.game.opening}:{context:playContext(s.event,model.game),description:s.event.description},time<4000,fraction);
+  inspector?.update(time);
   el('score').textContent=`Bills ${scoreDisplay.BUF.score} · Chiefs ${scoreDisplay.KC.score}`;
+  el('pause').textContent=clock?.manualPaused?'Resume':clock?.inspections.size?'Paused for play':'Pause';
   if(time>=420000){el('complete').hidden=false;el('pause').disabled=true;el('pause').textContent='Finished';}
 }
-el('play').addEventListener('click',()=>{
+function startReplay() {
+  clock?.stop(); inspector?.reset(); inspector=null;
   el('opening').hidden=true;el('replay').hidden=false;
+  el('complete').hidden=true;el('pause').disabled=false;
   render=createReplayChart(el('chart'),model);
-  clock=new Playback(420000,update);clock.setSpeed(el('speed').value);update(0);clock.start();
-});
-el('pause').addEventListener('click',()=>{clock.togglePause();el('pause').textContent=clock.paused?'Resume':'Pause';});
+  clock=new Playback(420000,update);clock.setSpeed(el('speed').value);
+  inspector=createEventInspector(el('chart'),model,schedule,render,clock);
+  update(0);clock.start();
+}
+el('play').addEventListener('click',startReplay);
+el('restart').addEventListener('click',startReplay);
+el('pause').addEventListener('click',()=>{clock.togglePause();update(clock.time);});
 el('speed').addEventListener('change',()=>clock?.setSpeed(el('speed').value));
 el('retry').addEventListener('click',load);
-document.addEventListener('visibilitychange',()=>{if(clock)clock.last=null;});
+document.addEventListener('visibilitychange',()=>clock?.setInactive(document.hidden));
 await load();

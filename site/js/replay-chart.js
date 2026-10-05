@@ -41,9 +41,9 @@ export function createReplayChart(svgElement, model) {
   }
   const drawn = paths.selectAll('path').data(items).join('path').attr('stroke',d=>d.loss?'#b43f3f':'#176844').attr('stroke-width',2.6).attr('stroke-dasharray',d=>d.category==='pass'&&!d.loss?'2 5':null);
   const returns = returnLabels.selectAll('text').data(items.filter(d=>['PR','KR','IR','FR'].includes(d.category))).join('text').attr('x',d=>d.b[0]+(d.team==='BUF'?-8:8)).attr('y',d=>(d.a[1]+d.b[1])/2).attr('text-anchor',d=>d.team==='BUF'?'end':'start').text(d=>d.category);
-  return function render(index, fraction, reveal, scoreDisplay) {
-    xGroup.attr('opacity',reveal>=1?1:0); yGroup.attr('opacity',reveal>=2?1:0);
-    yardHeading.attr('opacity',reveal>=2?1:0);
+  const render = function(index, fraction, reveal, scoreDisplay) {
+    xGroup.attr('opacity',reveal>=1?1:0).attr('aria-hidden',reveal<1); yGroup.attr('opacity',reveal>=2?1:0).attr('aria-hidden',reveal<2);
+    yardHeading.attr('opacity',reveal>=2?1:0).attr('aria-hidden',reveal<2);
     drawn.attr('d',d=>{
       if(d.index>index||reveal<3)return null;
       const f=d.index<index?1:fraction;
@@ -52,21 +52,24 @@ export function createReplayChart(svgElement, model) {
       const progress=scoring?(d.category==='score'?Math.max(0,(f-.7)/.3):Math.min(1,f/.7)):f;
       return `M${d.a}L${d.a[0]+(d.b[0]-d.a[0])*progress},${d.a[1]+(d.b[1]-d.a[1])*progress}`;
     });
-    returns.attr('opacity',d=>reveal>=3&&(d.index<index||d.index===index&&fraction===1)?1:0);
+    returns.attr('opacity',d=>reveal>=3&&(d.index<index||d.index===index&&fraction===1)?1:0).attr('aria-hidden',d=>!(reveal>=3&&(d.index<index||d.index===index&&fraction===1)));
     for(const team of ['BUF','KC']) {
       const s=model.snapshots[index]; const scoring=s.after[team].score!==s.before[team].score;
       const yardFraction=scoring?Math.min(1,fraction/.7):fraction;
       const scoreFraction=scoring?Math.max(0,(fraction-.7)/.3):fraction;
       const totals={score:s.before[team].score+(s.after[team].score-s.before[team].score)*scoreFraction,yards:s.before[team].yards+(s.after[team].yards-s.before[team].yards)*yardFraction};
       const p=coordinate(team,totals);
-      labels[team].attr('x',p[0]+(team==='BUF'?-10:10)).attr('y',p[1]-8).attr('opacity',reveal>=3?1:0);
+      labels[team].attr('x',p[0]+(team==='BUF'?-10:10)).attr('y',p[1]-8).attr('opacity',reveal>=3?1:0).attr('aria-hidden',reveal<3);
       const shown=scoreDisplay[team];
       const axisX=x((team==='BUF'?-1:1)*shown.score);
       const badgeX=axisX+(shown.score===0?(team==='BUF'?-43:43):0);
-      const marker=scoreMarkers[team].attr('opacity',reveal>=3?1:0).attr('aria-label',`${model.game.teams[team].name} current score ${shown.score}`);
+      const marker=scoreMarkers[team].attr('opacity',reveal>=3?1:0).attr('aria-hidden',reveal<3).attr('aria-label',`${model.game.teams[team].name} current score ${shown.score}`);
       marker.select('line').attr('x1',axisX).attr('x2',badgeX);
       marker.select('rect').attr('x',badgeX-41).attr('fill',shown.highlight?'#ffe58a':'#fff').attr('data-highlighted',String(shown.highlight));
       marker.select('text').attr('x',badgeX).text(`${model.game.teams[team].name} ${shown.score}`);
     }
   };
+  render.coordinate = coordinate;
+  render.width = width;
+  return render;
 }
