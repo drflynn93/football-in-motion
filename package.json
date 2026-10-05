@@ -1,0 +1,11 @@
+{
+  "name": "football-game-animation",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "prepare": "node tools/prepare-game.mjs",
+    "verify": "node tools/verify-game.mjs",
+    "test": "node --test"
+  }
+}

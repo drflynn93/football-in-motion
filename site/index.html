@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bills vs Chiefs · Game in motion</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./vendor/d3-7.9.0.min.js" defer></script>
+  <script src="./js/app.js" type="module"></script>
+</head>
+<body>
+<main>
+  <header><p class="eyebrow">Game in motion</p><h1>Bills vs Chiefs</h1><p>January 23, 2022 · AFC Divisional Playoff</p></header>
+  <section id="opening"><button id="play" disabled>Loading game…</button></section>
+  <section id="error" hidden role="alert"><p>The game could not be loaded. Please try again.</p><button id="retry">Retry</button></section>
+  <section id="replay" hidden aria-label="Game replay">
+    <div class="playback"><button id="pause">Pause</button><label>Speed <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option><option value="8">8×</option></select></label><p id="score">Bills 0 · Chiefs 0</p></div>
+    <div class="ticker"><p id="context"></p><p id="description"></p></div>
+    <div class="chart-wrap"><svg id="chart" viewBox="0 0 980 610" role="img" aria-label="Game paths: actual score left and right from zero, cumulative net offensive and return yards upward"></svg></div>
+    <div class="legend"><span><i class="run"></i>Run</span><span><i class="pass"></i>Pass</span><span class="return">PR / KR / IR / FR · Returns</span><span><i class="loss"></i>Lost yards</span></div>
+    <p class="note">Yards = rushing + passing after sacks + returns. Each side shows its team's actual score; distance between lines is not the score difference.</p>
+    <p id="complete" hidden role="status">Final · Bills 36 — Chiefs 42 · Overtime</p>
+  </section>
+  <footer>Data: <a href="https://github.com/nflverse/nflverse-data/releases/tag/pbp">nflverse</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Filtered and normalized for this replay; checked against the <a href="https://static.www.nfl.com/image/upload/v1677629313/gamecenter/34f0d976-71ad-11ec-a493-77fb1cc3a88e.pdf">official gamebook</a>.</footer>
+</main>
+</body>
+</html>
