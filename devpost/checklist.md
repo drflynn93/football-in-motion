@@ -29,7 +29,7 @@ Build mode: learn — chosen by the learner; after each verified slice, provide 
   Learner check: Try pause, speed and a yellow dot. Confirm the event stays readable, playback resumes as expected, and Replay starts at the beginning.
   Commit: `Add playback controls and inspectable game moments`
 
-- [ ] **3. Explore the final statistics over game time**
+- [x] **3. Explore the final statistics over game time**
   Becomes usable: The completed replay reveals a box score; passing/rushing clicks animate the lower chart, with team selection and quarter totals.
   Why now: Reuses the already checked game model without changing the main replay and adds the agreed comparison journey.
   PRD ref: `prd.md > Final Box Score and Selected-Stat Replay`
@@ -51,7 +51,9 @@ Build mode: learn — chosen by the learner; after each verified slice, provide 
 
 ## Hands-on Checkpoints
 
-Slice 3 implemented and mechanically verified October 5, 2026; awaiting learner feedback before the checkpoint commit. Twenty-three Node tests and the independent game verifier pass. Browser verified box score values, Chiefs as first selection with Compare both visible, Bills/Chiefs/both choices, passing-to-rushing restart, all five passing/rushing period totals, and an unchanged completed main SVG. After readability/end-bubble refinements, reran a complete 8x replay and checked the updated passing comparison and clean finish. Preview left on the completed passing comparison; the learner can immediately explore box-score choices.
+Slice 4 implemented and mechanically verified October 5, 2026; awaiting learner exploration before the final slice commit. Thirty-two Node tests pass, including independent denominators, N/A, nullified/earlier-down exclusions, conversion/failure/punt/field-goal colors, goal-to-go/zero labels, synthetic IR/FR/lost-return accounting, and repository-subpath hosting/privacy checks. Independent real-game verifier passes. Browser verified Chiefs-first summaries, Bills 8 and Chiefs 5 bars, chronological 13-bar comparison, click details and keyboard Enter/Escape with score-before/after context. Responsive views checked at 390 and 1280 requested viewport widths; no horizontal page overflow; override reset. Prepared 12 matching public files in docs and verified real browser startup/Play at /football-demo/; nothing uploaded. README includes startup/resume and data/license explanations. Final hands-on review and explicit ready confirmation remain pending.
+
+Slice 3 implemented and mechanically verified October 5, 2026; learner approved the comparison view and the slice was committed. Twenty-three Node tests and the independent game verifier pass. Browser verified box score values, Chiefs as first selection with Compare both visible, Bills/Chiefs/both choices, passing-to-rushing restart, all five passing/rushing period totals, and an unchanged completed main SVG. After readability/end-bubble refinements, reran a complete 8x replay and checked the updated passing comparison and clean finish. Preview left on the completed passing comparison; the learner can immediately explore box-score choices.
 
 Slice 2 implemented and mechanically verified October 5, 2026; learner confirmed expected behavior and the slice was committed. Nineteen Node tests pass (ten game-model and nine playback checks); independent real-game verification still passes. Browser checks covered marker hover/focus, automatic resume, preserving manual pause, keyboard Enter, click-to-pin/Close, speed selection and Replay clearing score/markers. Fixed a real narrow-layout click failure and repeated click/close/pause/Replay checks successfully. Preview left with an earlier touchdown open for inspection.
 

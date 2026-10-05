@@ -1,0 +1,20 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { createPreviewServer } from '../tools/serve.mjs';
+import { PUBLIC_FILES,auditPublicDirectory } from '../tools/publish.mjs';
+import { fileURLToPath } from 'node:url';
+test('repository-subpath preview serves relative app files and keeps planning files private',async()=>{
+ const server=createPreviewServer({prefix:'/football-demo/'});await new Promise(r=>server.listen(0,'127.0.0.1',r));
+ const base=`http://127.0.0.1:${server.address().port}/football-demo/`;
+ try {
+  for(const file of PUBLIC_FILES.filter(f=>f!=='vendor/d3-LICENSE'))assert.equal((await fetch(base+file)).status,200,file);
+  assert.equal((await fetch(base+'devpost/learner-profile.md')).status,404);
+  assert.equal((await fetch(base+'%2e%2e%2fdevpost/learner-profile.md')).status,403);
+  assert.equal((await fetch(new URL('/',base))).status,404);
+ }finally{await new Promise(r=>server.close(r));}
+});
+test('the public source manifest excludes profile, raw research and credentials',async()=>{
+ const files=await auditPublicDirectory(fileURLToPath(new URL('../site/',import.meta.url)));
+ assert.deepEqual(files.sort(),[...PUBLIC_FILES].sort());
+ assert.ok(files.every(f=>!/(learner-profile|research|\.env|\.agents)/.test(f)));
+});

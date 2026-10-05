@@ -6,6 +6,7 @@
     "start": "node tools/serve.mjs",
     "prepare": "node tools/prepare-game.mjs",
     "verify": "node tools/verify-game.mjs",
+    "publish": "node tools/publish.mjs",
     "test": "node --test"
   }
 }
