@@ -10,7 +10,15 @@
 </head>
 <body>
 <main>
-  <header><p class="eyebrow">Football in Motion</p><h1>Bills vs Chiefs</h1><p>January 23, 2022 · AFC Divisional Playoff</p></header>
+  <header><p class="eyebrow">Football in Motion · Game picker</p><h1 id="matchup">Choose a football game</h1><p id="matchup-date">NFL game replays</p></header>
+  <section class="picker" aria-labelledby="picker-title">
+    <h2 id="picker-title">Choose a game</h2>
+    <div class="picker-filters"><label>Season <select id="season-filter"></select></label><label>Team <select id="team-filter"></select></label></div>
+    <label class="game-choice">Game <select id="game-choice"></select></label><button id="load-game" disabled>Load game</button>
+    <p id="picker-status" role="status">Loading game list…</p><p id="verification-note" class="note"></p>
+    <div id="catalog-error" hidden role="alert"><p>The game list could not be loaded.</p><button id="retry-catalog">Retry game list</button></div>
+    <details id="unavailable-games" hidden><summary id="unavailable-count"></summary><ul id="unavailable-list"></ul></details>
+  </section>
   <section id="opening"><button id="play" disabled>Loading game…</button></section>
   <section id="error" hidden role="alert"><p>The game could not be loaded. Please try again.</p><button id="retry">Retry</button></section>
   <section id="replay" hidden aria-label="Game replay">
@@ -24,8 +32,8 @@
     <section id="box-score" hidden aria-labelledby="box-title">
       <h2 id="box-title">Final box score</h2>
       <p class="note">Select passing or rushing to watch those yards grow over game time.</p>
-      <table><thead><tr><th scope="col">Statistic</th><th scope="col">Bills</th><th scope="col">Chiefs</th></tr></thead><tbody id="box-rows"></tbody></table>
-      <p class="note">Passing here is gross passing yardage. The main replay uses passing after sack losses (Bills 313; Chiefs 370). Return yards include PR, KR, IR and FR; interceptions and opponent fumble recoveries are counts.</p>
+      <table><thead><tr><th scope="col">Statistic</th><th id="box-away" scope="col">Away</th><th id="box-home" scope="col">Home</th></tr></thead><tbody id="box-rows"></tbody></table>
+      <p id="passing-note" class="note"></p>
     </section>
     <section id="stat-analysis" hidden aria-labelledby="stat-title">
       <div class="analysis-header"><h2 id="stat-title">Passing yards over time</h2><label>Show <select id="stat-team"><option value="KC">Chiefs</option><option value="BUF">Bills</option><option value="both">Compare both</option></select></label><button id="compare-stat">Compare both</button></div>
@@ -46,7 +54,7 @@
       </div>
     </section>
   </section>
-  <footer>Data: <a href="https://github.com/nflverse/nflverse-data/releases/tag/pbp">nflverse</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Filtered and normalized for this replay; checked against the <a href="https://static.www.nfl.com/image/upload/v1677629313/gamecenter/34f0d976-71ad-11ec-a493-77fb1cc3a88e.pdf">official gamebook</a>.</footer>
+  <footer>Data: <a href="https://github.com/nflverse/nflverse-data/releases/tag/pbp">nflverse</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Filtered and normalized with source checks. The original Bills–Chiefs example was independently checked against its <a href="https://static.www.nfl.com/image/upload/v1677629313/gamecenter/34f0d976-71ad-11ec-a493-77fb1cc3a88e.pdf">official gamebook</a>.</footer>
 </main>
 </body>
 </html>

@@ -14,15 +14,18 @@ const number = (r, key, required = false) => {
 const flag = (r, key) => number(r, key) === 1;
 const delta = () => ({ rushing: 0, passing: 0, netPassing: 0, returns: 0, interceptions: 0, recoveries: 0 });
 
-export function normalizeRows(rows) {
-  let previousScore = { BUF: 0, KC: 0 };
+export function normalizeRows(rows, {id='2021_20_BUF_KC', teams=['BUF','KC'], seasonType='POST', season=2021}={}) {
+  const TEAMS=teams;
+  let previousScore = Object.fromEntries(TEAMS.map(t=>[t,0]));
   const events = [];
   for (const [sequence, r] of rows.entries()) {
-    if (r.game_id !== '2021_20_BUF_KC') throw new Error('Unexpected game in source.');
+    if (r.game_id !== id) throw new Error('Unexpected game in source.');
     const quarter = number(r, 'qtr', true);
-    const elapsed = (quarter - 1) * 900 + 900 - number(r, 'quarter_seconds_remaining', true);
-    const scoreAfter = { BUF: number(r, 'total_away_score', true), KC: number(r, 'total_home_score', true) };
-    const deltas = { BUF: delta(), KC: delta() };
+    const overtimeLength = seasonType==='REG' && season>=2017 ? 600 : 900;
+    const periodLength=quarter<=4?900:overtimeLength;
+    const elapsed = quarter<=4 ? (quarter-1)*900+900-number(r,'quarter_seconds_remaining',true) : 3600+(quarter-5)*overtimeLength+periodLength-number(r,'quarter_seconds_remaining',true);
+    const scoreAfter = { [TEAMS[0]]: number(r, 'total_away_score', true), [TEAMS[1]]: number(r, 'total_home_score', true) };
+    const deltas = Object.fromEntries(TEAMS.map(t=>[t,delta()]));
     const segments = [];
     const team = TEAMS.includes(r.posteam) ? r.posteam : null;
     const valid = r.play_type !== 'no_play' && !flag(r, 'no_play');

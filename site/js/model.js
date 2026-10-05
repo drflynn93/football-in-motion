@@ -1,8 +1,10 @@
 export const TEAMS = ['BUF', 'KC'];
+export const gameTeams = game => Object.keys(game.teams ?? {});
 export const emptyTotals = () => ({ score: 0, rushing: 0, passing: 0, netPassing: 0, returns: 0, interceptions: 0, recoveries: 0, yards: 0 });
 
 export function createModel(game) {
   validateGame(game);
+  const TEAMS = gameTeams(game);
   const totals = Object.fromEntries(TEAMS.map(t => [t, emptyTotals()]));
   const snapshots = [];
   for (const event of game.events) {
@@ -14,11 +16,12 @@ export function createModel(game) {
     }
     snapshots.push({ event, before, after: structuredClone(totals) });
   }
-  const quarters = [1, 2, 3, 4, 5].map(q => {
+  const periods = [...new Set(game.events.map(event => event.quarter))];
+  const quarters = periods.map(q => {
     const snapshot = snapshots.findLast(s => s.event.quarter <= q);
-    return { quarter: q, elapsed: q < 5 ? q * 900 : game.events.at(-1).elapsed, totals: snapshot?.after ?? Object.fromEntries(TEAMS.map(t => [t, emptyTotals()])) };
+    return { quarter: q, elapsed: q < 5 ? Math.min(q * 900,game.events.at(-1).elapsed) : snapshot.event.elapsed, totals: snapshot?.after ?? Object.fromEntries(TEAMS.map(t => [t, emptyTotals()])) };
   });
-  return { game, snapshots, totals: structuredClone(totals), quarters, fourthDowns: Object.fromEntries(TEAMS.map(t => [t, fourthDownSummary(game.events, t)])) };
+  return { game, teams: TEAMS, snapshots, totals: structuredClone(totals), quarters, fourthDowns: Object.fromEntries(TEAMS.map(t => [t, fourthDownSummary(game.events, t)])) };
 }
 
 export function fourthDownSummary(events, team) {
@@ -29,12 +32,13 @@ export function fourthDownSummary(events, team) {
 }
 
 export function validateGame(game) {
-  if (game?.schemaVersion !== 1 || game.id !== '2021_20_BUF_KC' || !Array.isArray(game.events) || game.events.length < 1) throw new Error('The saved game is incomplete.');
+  const TEAMS = gameTeams(game ?? {});
+  if (game?.schemaVersion !== 1 || !/^\d{4}_\d{2}_[A-Z0-9]+_[A-Z0-9]+$/.test(game.id) || TEAMS.length!==2 || !TEAMS.every(t=>game.teams[t].name && Number.isInteger(game.expected?.[t]?.score)) || !Array.isArray(game.events) || game.events.length < 1) throw new Error('The saved game is incomplete.');
   const seen = new Set();
   let priorElapsed = -1;
-  let previousScore = { BUF: 0, KC: 0 };
+  let previousScore = Object.fromEntries(TEAMS.map(t=>[t,0]));
   for (const event of game.events) {
-    if (seen.has(event.id) || !Number.isFinite(event.elapsed) || event.elapsed < priorElapsed || !Number.isInteger(event.quarter) || event.quarter < 1 || event.quarter > 5) throw new Error('The play order could not be verified.');
+    if (seen.has(event.id) || !Number.isFinite(event.elapsed) || event.elapsed < priorElapsed || !Number.isInteger(event.quarter) || event.quarter < 1 || event.quarter > 10) throw new Error('The play order could not be verified.');
     seen.add(event.id); priorElapsed = event.elapsed;
     if (typeof event.description !== 'string' || !event.description.trim()) throw new Error('A play description is missing.');
     for (const team of TEAMS) {
@@ -50,7 +54,10 @@ export function validateGame(game) {
       if (event.segments.filter(s => s.team === team).reduce((a, s) => a + s.yards, 0) !== expected) throw new Error('The displayed path does not match the yardage.');
     }
   }
-  if (previousScore.BUF !== 36 || previousScore.KC !== 42) throw new Error('The final score could not be verified.');
+  if (TEAMS.some(t=>previousScore[t]!==game.expected[t].score)) throw new Error('The final score could not be verified.');
+  const [left,right]=TEAMS;
+  const winner=previousScore[left]===previousScore[right]?null:previousScore[left]>previousScore[right]?left:right;
+  if(game.winner!==winner)throw new Error('The winning team is invalid.');
 }
 
 export function buildSchedule(events, duration = 416000) {
@@ -74,7 +81,7 @@ export function positionAt(schedule, time) {
 
 // Keep score labels as real whole-number scores, even while paths are moving.
 export function scoreDisplayAt(model, schedule, index, fraction, time) {
-  return Object.fromEntries(TEAMS.map(team => {
+  return Object.fromEntries(model.teams.map(team => {
     const current = model.snapshots[index];
     const scoring = current.before[team].score !== current.after[team].score;
     const applied = scoring && fraction >= 0.7;
@@ -88,7 +95,7 @@ export function scoreDisplayAt(model, schedule, index, fraction, time) {
 }
 
 export function statSeries(model, stat, team, elapsed = Infinity) {
-  if (!['passing', 'rushing'].includes(stat) || !TEAMS.includes(team)) throw new Error('Unknown yardage selection.');
+  if (!['passing', 'rushing'].includes(stat) || !model.teams.includes(team)) throw new Error('Unknown yardage selection.');
   const points = [{ elapsed: 0, yards: 0 }];
   for (const snapshot of model.snapshots) {
     if (snapshot.event.elapsed > elapsed) break;

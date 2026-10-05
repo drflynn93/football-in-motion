@@ -1,5 +1,5 @@
 const d3 = globalThis.d3;
-export const playContext = (event, game) => `${event.quarter===5?'Overtime':`Quarter ${event.quarter}`} · ${event.clock}${event.team?` · ${game.teams[event.team].name}`:''}${event.down?` · ${event.down}${['st','nd','rd','th'][event.down-1]} & ${event.goalToGo?'goal':event.yardsNeeded}`:''}`;
+export const playContext = (event, game) => `${event.quarter>=5?'Overtime':`Quarter ${event.quarter}`} · ${event.clock}${event.team?` · ${game.teams[event.team].name}`:''}${event.down?` · ${event.down}${['st','nd','rd','th'][event.down-1]} & ${event.goalToGo?'goal':event.yardsNeeded}`:''}`;
 
 export function createEventInspector(svgElement, model, schedule, render, clock) {
   const bubble=document.getElementById('event-bubble'), close=document.getElementById('close-event');
@@ -7,7 +7,7 @@ export function createEventInspector(svgElement, model, schedule, render, clock)
   const markers=[]; const occupied=new Map();
   for (const [index,snapshot] of model.snapshots.entries()) {
     if (!snapshot.event.tags.length) continue;
-    const team=snapshot.event.tags.includes('Interception')?snapshot.event.returnTeam??(snapshot.event.team==='BUF'?'KC':'BUF'):snapshot.event.team;
+    const team=snapshot.event.tags.includes('Interception')?snapshot.event.returnTeam??model.teams.find(t=>t!==snapshot.event.team):snapshot.event.team;
     if (!team) continue;
     const [x,y]=render.coordinate(team,snapshot.after[team]);
     const key=`${x.toFixed(0)},${y.toFixed(0)}`; const n=occupied.get(key)??0; occupied.set(key,n+1);
@@ -22,7 +22,7 @@ export function createEventInspector(svgElement, model, schedule, render, clock)
     if (shown!==marker) {
       const event=marker.snapshot.event;
       title.textContent=event.tags.join(' · ');
-      context.textContent=`${playContext(event,model.game)} · Bills ${event.scoreAfter.BUF}–Chiefs ${event.scoreAfter.KC}`;
+      context.textContent=`${playContext(event,model.game)} · ${model.teams.map(t=>`${model.game.teams[t].name} ${event.scoreAfter[t]}`).join('–')}`;
       description.textContent=event.description;
       shown=marker;
     }

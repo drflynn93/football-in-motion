@@ -11,9 +11,11 @@ export function decisionAppearance(event) {
 }
 export const distanceLabel=event=>`${event.yardsNeeded}${event.goalToGo?' to goal':''}`;
 export function createFourthDowns(model) {
+  const defaultTeam=model.game.winner??model.teams[0];
+  const scoreLine=scores=>model.teams.map(t=>`${model.game.teams[t].name} ${scores[t]}`).join('–');
   let available=false, expanded=false, pinned=null;
   function refresh() {
-    const teams=el('fourth-team').value==='both'?['BUF','KC']:[el('fourth-team').value];
+    const teams=el('fourth-team').value==='both'?model.teams:[el('fourth-team').value];
     el('fourth-summaries').replaceChildren();
     for(const team of teams) {
       const summary=fourthDownSummary(model.game.events,team);
@@ -29,11 +31,11 @@ export function createFourthDowns(model) {
   function details(event) {
     el('fourth-detail').hidden=false;
     el('fourth-detail-title').textContent=`${model.game.teams[event.team].name} · ${decisionAppearance(event).label}`;
-    el('fourth-detail-context').textContent=`${playContext(event,model.game)} · ${event.yardsNeeded} ${event.yardsNeeded===1?'yard':'yards'} ${event.goalToGo?'to goal':'needed'} · Score before: Bills ${event.scoreBefore.BUF}–Chiefs ${event.scoreBefore.KC}; after: Bills ${event.scoreAfter.BUF}–Chiefs ${event.scoreAfter.KC}`;
+    el('fourth-detail-context').textContent=`${playContext(event,model.game)} · ${event.yardsNeeded} ${event.yardsNeeded===1?'yard':'yards'} ${event.goalToGo?'to goal':'needed'} · Score before: ${scoreLine(event.scoreBefore)}; after: ${scoreLine(event.scoreAfter)}`;
     el('fourth-detail-play').textContent=event.description;
   }
   function dismiss() {pinned=null;el('fourth-detail').hidden=true;}
-  el('close-fourth').addEventListener('click',dismiss);
+  el('close-fourth').onclick=dismiss;
   function draw(teams) {
     dismiss();
     const events=model.game.events.filter(e=>teams.includes(e.team)&&e.down===4&&!e.nullified&&e.fourthDown);
@@ -63,14 +65,14 @@ export function createFourthDowns(model) {
       svg.append('text').attr('x',centre).attr('y',y(event.yardsNeeded)-8).attr('text-anchor','middle').attr('font-size',12).text(distanceLabel(event));
       const label=svg.append('text').attr('x',centre).attr('y',304).attr('text-anchor','middle').attr('font-size',11);
       label.append('tspan').attr('x',centre).text(event.team);
-      label.append('tspan').attr('x',centre).attr('dy',15).text(event.quarter===5?'OT':`Q${event.quarter}`);
+      label.append('tspan').attr('x',centre).attr('dy',15).text(event.quarter>=5?'OT':`Q${event.quarter}`);
       label.append('tspan').attr('x',centre).attr('dy',15).text(event.clock);
     }
   }
-  el('fourth-team').addEventListener('change',()=>{if(available)refresh();});
-  el('compare-fourth').addEventListener('click',()=>{el('fourth-team').value='both';refresh();});
+  el('fourth-team').onchange=()=>{if(available)refresh();};
+  el('compare-fourth').onclick=()=>{el('fourth-team').value='both';refresh();};
   return {
-    show() {if(available)return;available=true;el('fourth-analysis').hidden=false;el('fourth-team').value=model.game.winner;refresh();},
-    reset() {available=false;expanded=false;dismiss();el('fourth-analysis').hidden=true;el('fourth-bars').hidden=true;el('fourth-team').value=model.game.winner;},
+    show() {if(available)return;available=true;el('fourth-analysis').hidden=false;el('fourth-team').value=defaultTeam;refresh();},
+    reset() {available=false;expanded=false;dismiss();el('fourth-analysis').hidden=true;el('fourth-bars').hidden=true;el('fourth-team').value=defaultTeam;},
   };
 }

@@ -3,7 +3,14 @@ import { resolve,dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 const project=fileURLToPath(new URL('../',import.meta.url));
-export const PUBLIC_FILES=['.nojekyll','index.html','styles.css','vendor/d3-7.9.0.min.js','vendor/d3-LICENSE','data/bills-chiefs.json',...['app','model','playback','replay-chart','events','analysis','fourth-downs'].map(name=>`js/${name}.js`)];
+const catalog=JSON.parse(await readFile(resolve(project,'site/data/catalog.json'),'utf8'));
+if(catalog.schemaVersion!==1||!Array.isArray(catalog.games)||!catalog.games.length)throw new Error('Invalid public catalog.');
+const ids=new Set();
+for(const game of catalog.games){
+  if(!/^\d{4}_\d{2}_[A-Z0-9]+_[A-Z0-9]+$/.test(game.id)||game.path!==`data/games/${game.id}.json`||ids.has(game.id))throw new Error('Unsafe or repeated catalog path.');
+  ids.add(game.id);
+}
+export const PUBLIC_FILES=['.nojekyll','index.html','styles.css','vendor/d3-7.9.0.min.js','vendor/d3-LICENSE','data/bills-chiefs.json','data/catalog.json',...['app','model','playback','replay-chart','events','analysis','fourth-downs','picker'].map(name=>`js/${name}.js`),...catalog.games.map(game=>game.path)];
 export async function auditPublicDirectory(directory) {
   const result=[];
   async function walk(relative='') {
