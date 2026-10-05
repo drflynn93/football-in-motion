@@ -39,7 +39,7 @@ Build mode: learn — chosen by the learner; after each verified slice, provide 
   Learner check: Finish a replay, click passing then rushing, and try Bills/Chiefs/Compare both. Check that the selected winner appears first and the quarter markers make sense.
   Commit: `Add final box score and yardage comparison charts`
 
-- [ ] **4. Analyse fourth-down decisions and prepare the public site**
+- [x] **4. Analyse fourth-down decisions and prepare the public site**
   Becomes usable: Inspect fourth-down counts/rates and yards-needed bars for either team or both; the completed app can be previewed under the same path structure used by GitHub Pages.
   Why now: Adds the approved extension on top of established data and prepares the complete local app for final learner review before shipping.
   PRD ref: `prd.md > Fourth-Down Analysis`, `prd.md > Checkable Acceptance Criteria`
@@ -51,7 +51,7 @@ Build mode: learn — chosen by the learner; after each verified slice, provide 
 
 ## Hands-on Checkpoints
 
-Slice 4 implemented and mechanically verified October 5, 2026; awaiting learner exploration before the final slice commit. Thirty-two Node tests pass, including independent denominators, N/A, nullified/earlier-down exclusions, conversion/failure/punt/field-goal colors, goal-to-go/zero labels, synthetic IR/FR/lost-return accounting, and repository-subpath hosting/privacy checks. Independent real-game verifier passes. Browser verified Chiefs-first summaries, Bills 8 and Chiefs 5 bars, chronological 13-bar comparison, click details and keyboard Enter/Escape with score-before/after context. Responsive views checked at 390 and 1280 requested viewport widths; no horizontal page overflow; override reset. Prepared 12 matching public files in docs and verified real browser startup/Play at /football-demo/; nothing uploaded. README includes startup/resume and data/license explanations. Final hands-on review and explicit ready confirmation remain pending.
+Slice 4 implemented and mechanically verified October 5, 2026; learner approved the fourth-down view and final exploration with “looks good”; saved as checkpoint 04e7d78. Thirty-two Node tests pass, including independent denominators, N/A, nullified/earlier-down exclusions, conversion/failure/punt/field-goal colors, goal-to-go/zero labels, synthetic IR/FR/lost-return accounting, and repository-subpath hosting/privacy checks. Independent real-game verifier passes. Browser verified Chiefs-first summaries, Bills 8 and Chiefs 5 bars, chronological 13-bar comparison, click details and keyboard Enter/Escape with score-before/after context. Responsive views checked at 390 and 1280 requested viewport widths; no horizontal page overflow; override reset. Prepared 12 matching public files in docs and verified real browser startup/Play at /football-demo/; nothing uploaded. README includes startup/resume and data/license explanations. Final hands-on review is complete; no further changes requested.
 
 Slice 3 implemented and mechanically verified October 5, 2026; learner approved the comparison view and the slice was committed. Twenty-three Node tests and the independent game verifier pass. Browser verified box score values, Chiefs as first selection with Compare both visible, Bills/Chiefs/both choices, passing-to-rushing restart, all five passing/rushing period totals, and an unchanged completed main SVG. After readability/end-bubble refinements, reran a complete 8x replay and checked the updated passing comparison and clean finish. Preview left on the completed passing comparison; the learner can immediately explore box-score choices.
 
@@ -60,23 +60,23 @@ Slice 2 implemented and mechanically verified October 5, 2026; learner confirmed
 Slice 1 implementation and mechanical verification completed October 5, 2026: 189 normalized events; independent scoring/period/final-total verifier and nine model tests pass; browser replay reached Bills 36 / Chiefs 42; missing-data message and successful Retry checked. Learner confirmed the game story and approved clearer axis labels; slice 1 committed. Local preview: `node tools/serve.mjs` → `http://127.0.0.1:4173/`. Local Git author configured as Kevin Flynn with the learner-supplied GitHub no-reply address; first checkpoint saved.
 
 - [x] Early usable behavior explored — after slice 1; feedback can shape the visual implementation before later work.
-- [ ] Final kick-the-tires exploration and feedback completed — after slice 4. In learn mode, each slice also gets its listed learner check.
+- [x] Final kick-the-tires exploration and feedback completed — after slice 4. In learn mode, each slice also gets its listed learner check.
 
 ## Final Review
 
-- [ ] Final review complete — feedback resolved and learner confirms ready to ship
+- [x] Final review complete — checks pass; learner approved the completed app October 5, 2026, with no additional revisions requested.
 
 ## Code Tour and App Map
 
-- [ ] Learning activity complete — follow one project action through 2–3 real code locations, or connect already completed practice to the agent-workflow goal
-- [ ] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
-- [ ] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
+- [x] Learning activity complete — follow one project action through 2–3 real code locations, or connect already completed practice to the agent-workflow goal
+- [x] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
+- [x] `devpost/app-map.html` generated from finished code, source-checked, and provided as a file link; visual browser preview unavailable (local-file URL policy). Includes a project-grounded practice to reuse.
 
-Activity and evidence: not started
-Route and stops: to be chosen from finished code
-Edit outcome: not started
-Reflection: not offered yet; personal answers remain in the ignored learner profile
-Activity mode: guided action trace after final review, unless useful prior practice is connected instead
+Activity and evidence: evidence-based recap of actual axis refinement: learner requested clearer score and yardage axes, tried the changes and approved them. Exact-score transition/highlight/reset behavior has a model test; browser review and learner feedback established presentation readability. Connected this completed practice to an observable requirement → verification → hands-on review → checkpoint workflow. No claim of mastery.
+Route and stops: reference route in the map: model.js / fourthDownSummary → fourth-downs.js / refresh → fourth-downs.js / draw. Source paths and anchors checked; no interactive editor tour claimed.
+Edit outcome: previously completed and approved axis refinement supplies the practice evidence. Optional later heading edit offered in the map; no new edit performed or required.
+Reflection: optional transfer reflection offered as a follow-up with the map; no answer supplied or required for completion. Personal answers belong in the ignored learner profile.
+Activity mode: completed-practice connection and evidence-based recap, with an untoured reference route. Map has inline CSS and no scripts or fetched resources. Relative links checked; file-open requested in Codex (queued), file link provided in handoff. Offline visual rendering could not be checked because the in-app browser rejects file URLs.
 
 ## Revisions
 - Slice 3 browser review separated the closely spaced Q4/OT labels for readability. It also revealed that the final transient bubble could remain visible when the main clock stopped; completed playback now clears automatic bubbles while retaining dot inspection.

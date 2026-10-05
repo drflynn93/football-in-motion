@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game in motion — app map</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f6f6f3;color:#202520;font:17px/1.6 system-ui,sans-serif}main{max-width:1000px;margin:auto;padding:48px 24px}h1{font-size:clamp(30px,5vw,48px);line-height:1.15;margin:8px 0 16px}h2{font-size:25px;margin:0 0 12px}h3{font-size:19px;margin:0 0 8px}p{margin:0 0 14px}.eyebrow{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#456149}.lede{max-width:740px;font-size:20px}.card{background:white;border:1px solid #d6dbd4;border-radius:12px;padding:26px;margin:24px 0}.flow{display:grid;grid-template-columns:1fr 36px 1fr 36px 1fr;align-items:center;gap:8px;margin:22px 0}.step{border:1px solid #b6c3b5;background:#f4f8f3;border-radius:8px;padding:16px;align-self:stretch}.arrow{text-align:center;font-size:28px;color:#426b49}code{font:14px/1.5 ui-monospace,Consolas,monospace;background:#edf0eb;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}a{color:#145c38;text-underline-offset:3px}a:focus-visible,summary:focus-visible{outline:3px solid #c59a20;outline-offset:4px}li{margin-bottom:12px}.muted{color:#586157;font-size:14px}table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #ddd;padding:12px 8px;text-align:left;vertical-align:top}summary{cursor:pointer;font-weight:650}details p{margin:14px 0 0}footer{font-size:14px;color:#586157;margin-top:30px}@media(max-width:650px){main{padding:28px 16px}.card{padding:20px}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}th,td{font-size:14px;padding:10px 4px}}
+</style>
+<main>
+<header>
+<div class="eyebrow">Build With AI · finished-code reference</div>
+<h1>Game in motion<br>How the app fits together</h1>
+<p class="lede">One saved Bills–Chiefs game becomes a visual replay, a yardage comparison, and a view of fourth-down decisions.</p>
+<p class="muted">January 23, 2022 · final score Bills 36, Chiefs 42 · source snapshot <code>04e7d78</code> · October 5, 2026</p>
+</header>
+<section class="card" aria-labelledby="pieces">
+<h2 id="pieces">The main pieces</h2>
+<ul>
+<li><strong>Checked game data:</strong> <code>site/data/bills-chiefs.json</code> contains 189 events in source order. The app reads this saved file; watching needs no live sports service.</li>
+<li><strong>Numbers:</strong> <code>site/js/model.js</code> calculates cumulative yards, scores, quarter totals and fourth-down summaries.</li>
+<li><strong>Playback and views:</strong> <code>app.js</code> coordinates the main clock; <code>replay-chart.js</code> draws the main D3 chart; <code>events.js</code> handles key moments. <code>analysis.js</code> and <code>fourth-downs.js</code> provide the final analysis views. These files are in <code>site/js/</code>.</li>
+<li><strong>Sharing:</strong> <code>tools/publish.mjs</code> prepares an explicit set of public files in <code>docs/</code>. Uploading and enabling a public link are separate shipping steps.</li>
+</ul>
+</section>
+<section class="card" aria-labelledby="route">
+<h2 id="route">Follow a fourth-down count</h2>
+<p>This is a <strong>reference route</strong> for exploring the source later. It is not a record of an interactive editor tour.</p>
+<div class="flow" aria-label="Fourth-down summary calculation leads to a count button; clicking the count draws decision bars.">
+<div class="step"><h3>1. Calculate</h3><code>fourthDownSummary</code><p>Filter valid fourth downs and calculate counts and rates.</p></div>
+<div class="arrow" aria-hidden="true">→</div>
+<div class="step"><h3>2. Click</h3><code>refresh</code><p>Create the count button and connect its click to the chart.</p></div>
+<div class="arrow" aria-hidden="true">→</div>
+<div class="step"><h3>3. See</h3><code>draw</code><p>Render chronological yards-needed bars and inspectable details.</p></div>
+</div>
+<ol>
+<li>Open <a href="../site/js/model.js">site/js/model.js</a> and search <code>fourthDownSummary</code>. Go-for-it rate divides attempts by all valid decisions. Success rate divides conversions by attempts. No attempts produces <code>null</code>, displayed as N/A.</li>
+<li>Open <a href="../site/js/fourth-downs.js">site/js/fourth-downs.js</a> and search <code>function refresh()</code>. It uses that summary to create each team's count button; the click listener opens the bars for the selected teams.</li>
+<li>In the same file, search <code>function draw(teams)</code>. It draws a bar per valid decision. Height means yards needed; color means outcome. <code>details(event)</code> supplies clock, player description and score before/after on hover, focus or click.</li>
+</ol>
+<details><summary>Check the route in the running app</summary><p>Play at 8× to reach the final views in about 53 seconds. Chiefs initially shows 5 fourth downs, 1/5 attempts (20%) and 1/1 successful attempts (100%). Choose Compare both, click a fourth-down count, and inspect a bar. Bills has 8 decisions and 4/4 successful attempts.</p></details>
+</section>
+<section class="card" aria-labelledby="changes">
+<h2 id="changes">To change this, start here</h2>
+<table>
+<thead><tr><th scope="col">Visible behavior</th><th scope="col">Source starting point</th></tr></thead>
+<tbody>
+<tr><td>Yardage heading or exact-score badges</td><td><code>site/js/replay-chart.js</code> → <code>yardHeading</code>, <code>scoreMarkers</code>. Score timing comes from <code>scoreDisplayAt</code> in <code>model.js</code>.</td></tr>
+<tr><td>Replay controls and pause behavior</td><td><code>site/js/app.js</code> → <code>startReplay</code>; <code>site/js/playback.js</code> → <code>Playback</code>.</td></tr>
+<tr><td>Passing/rushing comparison</td><td><code>site/js/analysis.js</code> → <code>createAnalysis</code>; cumulative points come from <code>statSeries</code> in <code>model.js</code>.</td></tr>
+<tr><td>Fourth-down colors and labels</td><td><code>site/js/fourth-downs.js</code> → <code>decisionAppearance</code>, <code>distanceLabel</code>.</td></tr>
+<tr><td>Page spacing and text styles</td><td><code>site/styles.css</code>. Page structure lives in <code>site/index.html</code>.</td></tr>
+</tbody>
+</table>
+</section>
+<section class="card" aria-labelledby="practice">
+<h2 id="practice">A practice to reuse</h2>
+<p><strong>Make a request observable, verify it, try it, then save it.</strong> During this build, the requested clearer axes became exact bold score badges with brief yellow scoring highlights and a prominent “Cumulative yards gained” heading. Browser review checked readability; learner feedback approved the result.</p>
+<p>The score behavior is also checked in <a href="../tests/model.test.mjs">tests/model.test.mjs</a>, under <code>exact score labels and scoreboard switch together, briefly highlight, and reset</code>. It checks the score before and at a scoring transition, the highlight settling, and Replay resetting. A test establishes the numerical behavior; trying the browser establishes whether the presentation communicates it.</p>
+<p>Another concrete requirement appears in <a href="prd.md">devpost/prd.md</a>: 3 successful attempts out of 4 means 75%. <a href="../tests/fourth-downs.test.mjs">tests/fourth-downs.test.mjs</a> checks the denominator separately from the go-for-it rate. Clear examples help an agent build the intended behavior and help a reviewer detect mistakes.</p>
+<details><summary>Optional small practice for later</summary><p>Ask the agent to change only the yardage heading in <code>replay-chart.js</code>, agree on the wording, refresh the preview and check readability. If you keep the change, save a checkpoint and regenerate <code>docs/</code>. This optional edit has not been performed as part of the wrap-up.</p></details>
+</section>
+<section class="card" aria-labelledby="reopen">
+<h2 id="reopen">Run and reopen</h2>
+<p>Open the project folder in Codex and ask <strong>“Start the football app preview.”</strong> Or run <code>node tools/serve.mjs</code> from the project folder, then open <a href="http://127.0.0.1:4173/">the local app</a>. After turning off the PC, start the preview again.</p>
+<p>For checks: <code>node --test</code> and <code>node tools/verify-game.mjs</code>. After a kept app change: <code>node tools/publish.mjs</code> refreshes the prepared public copy without uploading it.</p>
+<p>Reopen this guide by opening <code>devpost/app-map.html</code>. It works offline with scripts disabled. The app itself needs its local preview server. See <a href="../README.md">README.md</a> for startup and data attribution.</p>
+</section>
+<footer>This map describes source checkpoint <code>04e7d78</code>. Future changes can make it drift; refresh the map when the described behavior changes. No public deployment has happened at this checkpoint.</footer>
+</main>
+</html>
